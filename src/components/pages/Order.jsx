@@ -143,7 +143,7 @@ class OrderPage extends Component {
           </div>
         </ContentBlock>
 
-        <div className="buttons-group to-bottom">
+        <div className="buttons-group to-bottom w100">
           <div
             className="app-button"
             onClick={this.pay}

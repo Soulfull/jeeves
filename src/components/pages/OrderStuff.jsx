@@ -95,7 +95,7 @@ class OrderStuff extends Component {
           </div>
         </ContentBlock>
 
-        <div className="buttons-group to-bottom">
+        <div className="buttons-group to-bottom w100">
           <Button href="/rating">
             <div className="flex">
               <div className="col">Pay</div>
