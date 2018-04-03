@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import axios from 'axios';
+import appState from '../stores/appStore.js';
 
 import {
   Framework7App,
@@ -26,31 +27,35 @@ const MainViews = (props, context) => {
 
 class LoginPage extends Component {
   state = {
-    email: '',
+    login: '',
     password: '',
   };
 
   changeEmail = (e) => {
     const value = e.target.value;
     this.setState({
-      email: value,
+      login: value,
     })
   }
 
   changePass = (e) => {
     const value = e.target.value;
     this.setState({
-      email: value,
+      password: value,
     })
   }
 
   register = () => {
-    const { email, password } = this.state;
+    const { login, password } = this.state;
     axios.post('https://jeeves-199912.appspot.com/user/reg', {
-      email, password
+      login, password
     })
       .then((response) => {
-        console.log(response);
+        appState.user = {
+          id: response.data.id,
+          login: response.data.login,
+        };
+        getFramework7().mainView.router.loadPage('/add-card');
       })
       .catch((error) => {
         console.log(error);
@@ -70,8 +75,8 @@ class LoginPage extends Component {
           </div>
           <form>
             <div className="form-input">
-              <div className="form-input__label">Your e-mail</div>
-              <input type="text" placeholder="example@mail.com" onChange={this.changeEmail} />
+              <div className="form-input__label">Your login</div>
+              <input type="text" placeholder="login" onChange={this.changeEmail} />
             </div>
             <div className="form-input">
               <div className="form-input__label">Create a password</div>
