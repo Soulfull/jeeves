@@ -29,9 +29,11 @@ class LoginPage extends Component {
   state = {
     login: '',
     password: '',
+    form: 'register',
+    error: null,
   };
 
-  changeEmail = (e) => {
+  changeName = (e) => {
     const value = e.target.value;
     this.setState({
       login: value,
@@ -43,11 +45,11 @@ class LoginPage extends Component {
     this.setState({
       password: value,
     })
-  }
+  };
 
-  register = () => {
+  loginStuff = () => {
     const { login, password } = this.state;
-    axios.post('https://jeeves-199912.appspot.com/user/reg', {
+    axios.post('https://jeeves-199912.appspot.com/waiter/login', {
       login, password
     })
       .then((response) => {
@@ -64,6 +66,54 @@ class LoginPage extends Component {
       });
   }
 
+  login = () => {
+    const { login, password } = this.state;
+    axios.post('https://jeeves-199912.appspot.com/user/login', {
+      login, password
+    })
+      .then((response) => {
+        if (response.data.error) {
+          this.setState({
+            error: response.data.error
+          });
+        }
+        appState.user = {
+          id: response.data.data.id,
+          login: response.data.data.login,
+        };
+        getFramework7().mainView.router.loadPage('/add-card');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  register = () => {
+    const { login, password } = this.state;
+    // axios.post('https://jeeves-199912.appspot.com/user/reg', {
+    //   login, password
+    // })
+    //   .then((response) => {
+    //     console.log(response);
+    //     appState.user = {
+    //       id: response.data.data.id,
+    //       login: response.data.data.login,
+    //     };
+    //     getFramework7().mainView.router.loadPage('/add-card');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    getFramework7().mainView.router.loadPage('/add-card');
+  }
+
+  toogleForm = () => {
+    let formState = this.state.form === 'login' ? 'register': 'login';
+    this.setState({
+      form: formState
+    })
+  }
+
   render() {
     return (
       <Page loginScreen>
@@ -77,22 +127,44 @@ class LoginPage extends Component {
           </div>
           <form>
             <div className="form-input">
-              <div className="form-input__label">Your login</div>
-              <input type="text" placeholder="login" onChange={this.changeEmail} />
+              <div className="form-input__label">Your name</div>
+              <input type="text" placeholder="name" onChange={this.changeName} />
             </div>
             <div className="form-input">
-              <div className="form-input__label">Create a password</div>
+              <div className="form-input__label">{this.state.form === 'login' ? 'Your Password' : 'Create password'}</div>
               <input type="password" placeholder="password" onChange={this.changePass} />
             </div>
+
+            {
+              this.state.error ?
+                <div className="error" style={{color: 'red'}}>{this.state.error}</div>
+                : null
+            }
           </form>
 
           <div className="buttons-group to-bottom">
-            <button
-              className="app-button"
-              onClick={this.register}
-            >
-              Register
-            </button>
+            {
+              this.state.form === 'login'
+              ?     <button
+                  className="app-button"
+                  onClick={this.login}
+                >
+                  Login
+                </button>
+              :      <button
+                  className="app-button"
+                  onClick={this.register}
+                >
+                  Register
+                </button>
+            }
+
+            {
+              this.state.form === 'login'
+              ? <a href="#" onClick={this.toogleForm} className="button-link">Create account</a>
+              : <a href="#" onClick={this.toogleForm} className="button-link">Already have an account?</a>
+            }
+
           </div>
         </div>
       </Page>

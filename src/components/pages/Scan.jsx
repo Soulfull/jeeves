@@ -18,14 +18,15 @@ class ScanPage extends Component {
   }
 
   sendCode(data) {
+    const d = JSON.parse(data);
+
+    appState.rest = d.rest;
+    appState.table = d.table;
     this.setState({
       loading: true,
     });
-    return axios.post('/code', {
-      code: data,
-    })
-      .then((response) => {
-        appState.table = response;
+    return axios.post('/code', data)
+      .then(() => {
         this.setState({
           loading: false,
           error: false,
