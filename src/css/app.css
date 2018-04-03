@@ -323,3 +323,8 @@ body,
     vertical-align: top;
     margin:0 8px;
 }
+
+.buttons-group {
+    display: flex;
+    justify-content: center;
+}

@@ -8,24 +8,24 @@ import {
 import Button from '../../components/Button.jsx';
 
 
-class OrderPage extends Component {
+class OrderStuff extends Component {
   render() {
     return (
       <Page>
         <Navbar className="navbar-light" title="Тable 4 at «Seabass»" sliding />
         <ContentBlock inner>
           <div className="order">
-            <div className="order__title">Your dishes:</div>
+            <div className="order__title">Table 4:</div>
             <ul className="order-list">
               <li className="order-list-item">
                 <div className="order-list-item__col">
-                  <div className="order-list-item__name">Lobster</div>
+                  <div className="order-list-item__name">Beer Weisse</div>
                 </div>
                 <div className="order-list-item__col">
                   <div className="order-list-item__price">
                     <NumberFormat
                       displayType="text"
-                      value={300}
+                      value={10}
                       decimalScale={2}
                       prefix="$ "/>
                   </div>
@@ -105,7 +105,7 @@ class OrderPage extends Component {
         </ContentBlock>
 
         <div className="buttons-group to-bottom">
-          <Button href="/order-stuff">
+          <Button href="/rating">
             <div className="flex">
               <div className="col">Pay</div>
               <div className="col">
@@ -123,4 +123,4 @@ class OrderPage extends Component {
   }
 }
 
-export default OrderPage;
+export default OrderStuff;

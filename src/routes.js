@@ -4,6 +4,7 @@ import {AddCard} from './components/pages/AddCard';
 import Scan from './components/pages/Scan.jsx';
 import {Garson} from './components/pages/Garson.jsx'
 import OrderPage from "./components/pages/Order.jsx";
+import OrderPageStuff from "./components/pages/OrderStuff.jsx";
 import RatingPage from "./components/pages/Rating.jsx";
 import ThanksPage from "./components/pages/Thanks.jsx";
 
@@ -32,4 +33,8 @@ export const routes = [{
 }, {
   path: '/thx/',
   component: ThanksPage
-}];
+},
+  {
+    path: '/order-stuff/',
+    component: OrderPageStuff
+  }];
