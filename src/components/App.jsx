@@ -38,7 +38,7 @@ class LoginPage extends Component {
     this.setState({
       login: value,
     })
-  }
+  };
 
   changePass = (e) => {
     const value = e.target.value;
@@ -64,7 +64,7 @@ class LoginPage extends Component {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   login = () => {
     const { login, password } = this.state;
@@ -81,7 +81,7 @@ class LoginPage extends Component {
           id: response.data.data.id,
           login: response.data.data.login,
         };
-        getFramework7().mainView.router.loadPage('/add-card');
+        getFramework7().mainView.router.loadPage('/scan');
       })
       .catch((error) => {
         console.log(error);
