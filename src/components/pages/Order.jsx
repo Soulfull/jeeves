@@ -14,6 +14,7 @@ class OrderPage extends Component {
   state = {
     tm: null,
     myDishes: 0,
+    isInvited: false,
   }
 
   orderItems = [];
@@ -66,6 +67,21 @@ class OrderPage extends Component {
       this.updateData(response.data);
     });
 
+  };
+
+  inviteGarson = () => {
+    if(this.state.isInvited) {
+      return false;
+    }
+    this.setState({
+      isInvited: true,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        isInvited: false,
+      })
+    }, 5000)
   };
 
   render() {
@@ -159,7 +175,13 @@ class OrderPage extends Component {
                 </span>
                 </div>
                 <div className="buttons-group to-bottom w100 buttons-group_transparent">
-                  <button className="app-button_transparent">Garçon!</button>
+                  <button onClick={this.inviteGarson} className="app-button_transparent">
+                    {
+                      this.state.isInvited
+                      ? <span>Waiting for Garçon...</span>
+                      : <span>Garçon!</span>
+                    }
+                  </button>
                 </div>
               </div>
             )
