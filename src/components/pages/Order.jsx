@@ -178,7 +178,7 @@ class OrderPage extends Component {
                   <button onClick={this.inviteGarson} className="app-button_transparent">
                     {
                       this.state.isInvited
-                      ? <span>Waiting for Garçon...</span>
+                      ? <span>Wait please...</span>
                       : <span>Garçon!</span>
                     }
                   </button>
