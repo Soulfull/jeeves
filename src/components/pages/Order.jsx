@@ -16,50 +16,21 @@ class OrderPage extends Component {
     myDishes: 0,
   }
 
-  componentWillMount() {
+  orderItems = [];
 
-    // axios.post('https://jeeves-199912.appspot.com/order/status')
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
-    this.data = {
-      "data": {
-        "order_items": [
-          {
-            "id": 2,
-            "menu_item": {
-              "name": "Borshch",
-              "price": 99
-            },
-            "users": [
-              {
-                "id": 2,
-                "name": "asdsdf"
-              }
-            ]
-          },
-          {
-            "id": 3,
-            "menu_item": {
-              "name": "Chicken",
-              "price": 140
-            },
-            "users": [
-              {
-                "id": 2,
-                "name": "asdsdf"
-              }
-            ]
-          }
-        ]
-      }
-    }
-    this.orderItems = this.data.data.order_items;
+  componentWillMount() {
+    axios.post('https://jeeves-199912.appspot.com/order/status')
+      .then((response) => {
+        console.log(response);
+        const test = response;
+        debugger;
+        this.updateData(response.data)
+      });
   }
 
   updateData = (data) => {
     this.data = data;
-    this.orderItems = this.items.data.order_items;
+    this.orderItems = this.data.data.order_items;
     this.setState({
       tm: +new Date()
     })
