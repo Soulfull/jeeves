@@ -51,9 +51,11 @@ class LoginPage extends Component {
       login, password
     })
       .then((response) => {
+        console.log(response);
         appState.user = {
-          id: response.data.id,
-          login: response.data.login,
+          id: response.data.data.id,
+          login: response.data.data.login,
+          rest_id: response.data.data.rest_id,
         };
         getFramework7().mainView.router.loadPage('/add-card');
       })
