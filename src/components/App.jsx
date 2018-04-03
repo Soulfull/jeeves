@@ -121,11 +121,11 @@ class LoginPage extends Component {
           <div className="app-logo">
             LOGO
           </div>
-          <div>
+          <div className="title-app">
             <div className="title">jeeves</div>
             <div className="sub-title">Next level restaurant experience</div>
           </div>
-          <form>
+          <form className="auth-form">
             <div className="form-input">
               <div className="form-input__label">Your name</div>
               <input type="text" placeholder="name" onChange={this.changeName} />

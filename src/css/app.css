@@ -45,8 +45,6 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    width: 100% !important;
-    max-width: 100%;
 }
 
 body,
@@ -58,7 +56,7 @@ body,
 
 .app-logo {
     display: block;
-    margin: 60px auto 32px;
+    margin: 0 auto 32px;
     width: 88px;
     height: 88px;
     background-color: transparent;
@@ -67,13 +65,24 @@ body,
     flex-shrink: 0;
     text-indent: -999999px;
 }
-
+.title-app {
+    width: 100%;
+    text-align: center;
+}
+.auth-form {
+    margin: 20px 8px;
+}
 .title {
-    display: block;
-    text-align: left;
+    display: inline-block;
+    width: 192px;
+    height: 24px;
     text-transform: capitalize;
     font-size: 32px;
     letter-spacing: 13px;
+    text-indent: -9999999px;
+    background-repeat: no-repeat;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAgMCAxOTIgMjUiPiAgICA8cGF0aCBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02Ljk4MyAyNC4wM2MtMS41MTUgMC0yLjkwNy0uMjgzLTQuMTc2LS44NDhhOC4xMyA4LjEzIDAgMCAxLTIuNTI5LTEuNzM4IDEgMSAwIDAgMS0uMDQ2LTEuMzMybDEuODM5LTIuMjA4YS42MzQuNjM0IDAgMCAxIC45NjQtLjAxMmMxLjEgMS4yNTUgMi4zMyAxLjg4MiAzLjY5MiAxLjg4MiAyLjExMiAwIDMuMTY4LTEuMjM4IDMuMTY4LTMuNzEyVjQuNzY5YTEgMSAwIDAgMSAuMjMzLS42NDJMMTMuMjguMzU4QTEgMSAwIDAgMSAxNS4wNDcgMXYxNC43NzRjMCAyLjc1Mi0uNjgzIDQuODE2LTIuMDQ4IDYuMTkyLTEuMzY2IDEuMzc2LTMuMzcxIDIuMDY0LTYuMDE2IDIuMDY0em00NS41MjgtMy41NDR2Mi4xNmExIDEgMCAwIDEtMSAxSDM2LjE2N2ExIDEgMCAwIDEtMS0xdi0yMC40YTEgMSAwIDAgMSAxLTFoMTQuOTI4YTEgMSAwIDAgMSAxIDF2Mi4xNmExIDEgMCAwIDEtMSAxaC05Ljc3NmExIDEgMCAwIDAtMSAxVjkuMjdhMSAxIDAgMCAwIDEgMWg4LjRhMSAxIDAgMCAxIDEgMXYyLjAzMmExIDEgMCAwIDEtMSAxaC04LjRhMSAxIDAgMCAwLTEgMXYzLjE4NGExIDEgMCAwIDAgMSAxSDUxLjUxYTEgMSAwIDAgMSAxIDF6bTM0LjQ3MiAwdjIuMTZhMSAxIDAgMCAxLTEgMUg3MC42MzlhMSAxIDAgMCAxLTEtMXYtMjAuNGExIDEgMCAwIDEgMS0xaDE0LjkyOGExIDEgMCAwIDEgMSAxdjIuMTZhMSAxIDAgMCAxLTEgMUg3NS43OWExIDEgMCAwIDAtMSAxVjkuMjdhMSAxIDAgMCAwIDEgMWg4LjRhMSAxIDAgMCAxIDEgMXYyLjAzMmExIDEgMCAwIDEtMSAxaC04LjRhMSAxIDAgMCAwLTEgMXYzLjE4NGExIDEgMCAwIDAgMSAxaDEwLjE5MmExIDEgMCAwIDEgMSAxem0zNy43MzktMTcuODQzbC04LjgzIDIwLjRhMSAxIDAgMCAxLS45MTguNjAzaC0zLjgwNmExIDEgMCAwIDEtLjkxOC0uNjA0bC04LjgwMS0yMC40YTEgMSAwIDAgMSAuOTE4LTEuMzk2aDMuNDE5YTEgMSAwIDAgMSAuOTIuNjA4bDUuNjQzIDEzLjI0N2ExIDEgMCAwIDAgMS44MzguMDA1bDUuNzI3LTEzLjI1N2ExIDEgMCAwIDEgLjkxOC0uNjAzaDIuOTcyYTEgMSAwIDAgMSAuOTE4IDEuMzk3em0zMi44MDUgMTcuODQzdjIuMTZhMSAxIDAgMCAxLTEgMWgtMTUuMzQ0YTEgMSAwIDAgMS0xLTF2LTIwLjRhMSAxIDAgMCAxIDEtMWgxNC45MjhhMSAxIDAgMCAxIDEgMXYyLjE2YTEgMSAwIDAgMS0xIDFoLTkuNzc2YTEgMSAwIDAgMC0xIDFWOS4yN2ExIDEgMCAwIDAgMSAxaDguNGExIDEgMCAwIDEgMSAxdjIuMDMyYTEgMSAwIDAgMS0xIDFoLTguNGExIDEgMCAwIDAtMSAxdjMuMTg0YTEgMSAwIDAgMCAxIDFoMTAuMTkyYTEgMSAwIDAgMSAxIDF6bTI0LjQ4OCAzLjU0NGMtMS43NzEgMC0zLjQ4My0uMjQtNS4xMzYtLjcyLTEuMzQ4LS4zOTEtMi40NzktLjg3OC0zLjM5NC0xLjQ2YS44MjUuODI1IDAgMCAxLS4zMS0xLjAzNmwxLjE2OC0yLjU5YS42MzguNjM4IDAgMCAxIC45Mi0uMjc4Yy44MjQuNTE2IDEuNzYyLjk0NCAyLjgxNiAxLjI4NGExMi44NiAxMi44NiAwIDAgMCAzLjk2OC42NGMxLjQ3MiAwIDIuNTYtLjIxOSAzLjI2NC0uNjU2LjcwNC0uNDM4IDEuMDU2LTEuMDE5IDEuMDU2LTEuNzQ0IDAtLjUzNC0uMjA4LS45NzYtLjYyNC0xLjMyOC0uNDE2LS4zNTItLjk1LS42MzUtMS42LS44NDgtLjY1MS0uMjE0LTEuNTMxLS40NDgtMi42NC0uNzA0LTEuNzA3LS40MDYtMy4xMDQtLjgxMS00LjE5Mi0xLjIxNmE2LjgxIDYuODEgMCAwIDEtMi44LTEuOTUyYy0uNzc5LS44OTYtMS4xNjgtMi4wOTEtMS4xNjgtMy41ODQgMC0xLjMwMi4zNTItMi40OCAxLjA1Ni0zLjUzNi43MDQtMS4wNTYgMS43NjUtMS44OTQgMy4xODQtMi41MTIgMS40MTgtLjYxOSAzLjE1Mi0uOTI4IDUuMi0uOTI4IDEuNDI5IDAgMi44MjYuMTcgNC4xOTIuNTEyYTEzLjA5IDEzLjA5IDAgMCAxIDIuODIgMS4wMzhjLjQ0LjIyNi42MzQuNzUyLjQ0OCAxLjIxbC0xIDIuNDYxYS42NzguNjc4IDAgMCAxLS45MzUuMzVjLTEuODUyLS45NDEtMy43MDUtMS40MTEtNS41NTctMS40MTEtMS40NTEgMC0yLjUyMy4yMzQtMy4yMTYuNzA0LS42OTQuNDY5LTEuMDQgMS4wODgtMS4wNCAxLjg1NnMuNCAxLjMzOCAxLjIgMS43MTJjLjguMzczIDIuMDIxLjc0MSAzLjY2NCAxLjEwNCAxLjcwNi40MDUgMy4xMDQuODEgNC4xOTIgMS4yMTZhNi45NDIgNi45NDIgMCAwIDEgMi44IDEuOTJjLjc3OC44NzQgMS4xNjggMi4wNTggMS4xNjggMy41NTIgMCAxLjI4LS4zNTggMi40NDgtMS4wNzIgMy41MDQtLjcxNSAxLjA1Ni0xLjc4NyAxLjg5My0zLjIxNiAyLjUxMi0xLjQzLjYxOC0zLjE2OC45MjgtNS4yMTYuOTI4eiIvPjwvc3ZnPg==);
+
 }
 
 .sub-title {
@@ -136,7 +145,6 @@ body,
 }
 
 .app-button {
-    width: 100%;
     border: 0;
     display: block;
     background-color: #000;
@@ -145,6 +153,13 @@ body,
     padding: 20px 25px;
     font-size: 16px;
     border-radius: 0;
+}
+.button-link {
+    display: block;
+    margin: 18px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #969693;
 }
 
 .app-button + .app-button {
@@ -159,7 +174,6 @@ body,
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     height: 100%;
     padding: 80px 0;
     box-sizing: border-box;
@@ -167,6 +181,8 @@ body,
 
 .buttons-group {
     width: 80%;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .form-input {
@@ -368,6 +384,7 @@ body,
 .buttons-group {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .link_white {
