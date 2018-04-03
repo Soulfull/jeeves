@@ -15,6 +15,7 @@ class OrderPage extends Component {
     tm: null,
     myDishes: 0,
     isInvited: false,
+    sum: 0,
   }
 
   orderItems = [];
@@ -22,16 +23,13 @@ class OrderPage extends Component {
   componentWillMount() {
     axios.post('https://jeeves-199912.appspot.com/order/status')
       .then((response) => {
-        console.log(response);
-        const test = response;
-        debugger;
         this.updateData(response.data)
       });
   }
 
   updateData = (data) => {
     this.data = data;
-    this.orderItems = this.data.data.order_items;
+    this.orderItems = this.data.data.order_items || [];
     this.setState({
       tm: +new Date()
     })
@@ -40,7 +38,7 @@ class OrderPage extends Component {
   pay = () => {
     axios.post('https://jeeves-199912.appspot.com/order/pay')
       .then(() => {
-        getFramework7().mainView.router.loadPage('/order-stuff');
+        getFramework7().mainView.router.loadPage('/rating');
       });
   };
 
@@ -49,7 +47,8 @@ class OrderPage extends Component {
       detail_id: id,
     }).then((response) => {
       this.setState({
-        myDishes: ++this.state.myDishes
+        myDishes: ++this.state.myDishes,
+        sum: 0,
       })
       this.updateData(response.data);
     });
@@ -62,7 +61,8 @@ class OrderPage extends Component {
     }).then((response) => {
       console.log(response);
       this.setState({
-        myDishes: --this.state.myDishes
+        myDishes: --this.state.myDishes,
+        sum: 0,
       });
       this.updateData(response.data);
     });
@@ -107,6 +107,9 @@ class OrderPage extends Component {
                   const users = item.users.map(user => {
                     if (user.id === appState.user.id) {
                       me = true;
+                      this.setState({
+                        sum: this.state.sum + item.menu_item.price
+                      })
                     }
                     return user.name;
                   });
@@ -157,7 +160,7 @@ class OrderPage extends Component {
                     <div className="col">
                       <NumberFormat
                         displayType="text"
-                        value={1100}
+                        value={this.state.sum}
                         decimalScale={2}
                         prefix="$ "/>
                     </div>
