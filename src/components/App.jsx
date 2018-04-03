@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
+import axios from 'axios';
 
 import {
   Framework7App,
@@ -23,23 +24,74 @@ const MainViews = (props, context) => {
   );
 };
 
-const LoginPage = () => (
-  <Page loginScreen>
-    <div className="page-wrapper page-wrapper--start">
-      <div className="app-logo">
-       LOGO
-      </div>
-      <div>
-        <div className="title">jeeves</div>
-        <div className="sub-title">Next level restaurant experience</div>
-      </div>
-      <div className="buttons-group">
-        <Button href="/add-card/">Autgorize with Google</Button>
-        <Button href="/add-card/">Autgorize with Facebook</Button>
-      </div>
-    </div>
-  </Page>
-);
+class LoginPage extends Component {
+  state = {
+    email: '',
+    password: '',
+  };
+
+  changeEmail = (e) => {
+    const value = e.target.value;
+    this.setState({
+      email: value,
+    })
+  }
+
+  changePass = (e) => {
+    const value = e.target.value;
+    this.setState({
+      email: value,
+    })
+  }
+
+  register = () => {
+    const { email, password } = this.state;
+    axios.post('https://jeeves-199912.appspot.com/user/reg', {
+      email, password
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  render() {
+    return (
+      <Page loginScreen>
+        <div className="page-wrapper page-wrapper--start">
+          <div className="app-logo">
+            LOGO
+          </div>
+          <div>
+            <div className="title">jeeves</div>
+            <div className="sub-title">Next level restaurant experience</div>
+          </div>
+          <form>
+            <div className="form-input">
+              <div className="form-input__label">Your e-mail</div>
+              <input type="text" placeholder="example@mail.com" onChange={this.changeEmail} />
+            </div>
+            <div className="form-input">
+              <div className="form-input__label">Create a password</div>
+              <input type="password" placeholder="password" onChange={this.changePass} />
+            </div>
+          </form>
+
+          <div className="buttons-group to-bottom">
+            <button
+              className="app-button"
+              onClick={this.register}
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </Page>
+    )
+  }
+}
 
 MainViews.contextTypes = {
   framework7AppContext: PropTypes.object,
