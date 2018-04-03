@@ -74,7 +74,6 @@ class ScanPage extends Component {
             <div className="scan-title scan-title--bottom">
 
               <a href="#" className="link_white">Help</a>
-              <button className="button_white" onClick={() => {getFramework7().mainView.router.loadPage('/garson/');}}>GO NEXT!</button>
             </div>
           </div>
       </Page>

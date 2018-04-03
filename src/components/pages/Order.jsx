@@ -15,16 +15,16 @@ class OrderPage extends Component {
     tm: null,
     myDishes: 0,
     isInvited: false,
-    sum: 0,
   }
 
   orderItems = [];
 
   componentWillMount() {
-    axios.post('https://jeeves-199912.appspot.com/order/status')
-      .then((response) => {
-        this.updateData(response.data)
-      });
+    this.updateData({"data":{"order_items":[{"id":24,"menu_item":{"name":"Beer Lager","price":250},"users":[{"id":45,"name":"Misha"}]},{"id":25,"menu_item":{"name":"Beer Lager","price":250},"users":[{"id":45,"name":"Misha"}]},{"id":26,"menu_item":{"name":"Lobster","price":10000},"users":[{"id":45,"name":"Misha"}]},{"id":27,"menu_item":{"name":"Beer Weisse","price":260},"users":[]},{"id":28,"menu_item":{"name":"Chateaut Boudeaux","price":2500},"users":[{"id":43,"name":"Simon"}]},{"id":29,"menu_item":{"name":"Ceasar Salad","price":350},"users":[{"id":43,"name":"Simon"}]},{"id":30,"menu_item":{"name":"Olivie Salad","price":430},"users":[{"id":43,"name":"Simon"}]},{"id":31,"menu_item":{"name":"Ceasar Salad","price":350},"users":[]},{"id":32,"menu_item":{"name":"Expresso","price":300},"users":[]},{"id":33,"menu_item":{"name":"Borshch","price":99},"users":[{"id":74,"name":"5434543"}]},{"id":34,"menu_item":{"name":"Chateaut Boudeaux","price":2500},"users":[{"id":75,"name":"5435345435"}]},{"id":35,"menu_item":{"name":"Olivie Salad","price":430},"users":[{"id":75,"name":"5435345435"}]}]}})
+    // axios.post('https://jeeves-199912.appspot.com/order/status')
+    //   .then((response) => {
+    //     this.updateData(response.data)
+    //   });
   }
 
   updateData = (data) => {
@@ -46,9 +46,9 @@ class OrderPage extends Component {
     axios.post('https://jeeves-199912.appspot.com/order/join_order', {
       detail_id: id,
     }).then((response) => {
+      this.sum = 0;
       this.setState({
         myDishes: ++this.state.myDishes,
-        sum: 0,
       })
       this.updateData(response.data);
     });
@@ -59,10 +59,9 @@ class OrderPage extends Component {
     axios.post('https://jeeves-199912.appspot.com/order/leave_order', {
       detail_id: id,
     }).then((response) => {
-      console.log(response);
+      this.sum = 0;
       this.setState({
         myDishes: --this.state.myDishes,
-        sum: 0,
       });
       this.updateData(response.data);
     });
@@ -83,6 +82,8 @@ class OrderPage extends Component {
       })
     }, 5000)
   };
+
+  sum = 0;
 
   render() {
     let me = null;
@@ -107,9 +108,7 @@ class OrderPage extends Component {
                   const users = item.users.map(user => {
                     if (user.id === appState.user.id) {
                       me = true;
-                      this.setState({
-                        sum: this.state.sum + item.menu_item.price
-                      })
+                      this.sum = this.sum + item.menu_item.price
                     }
                     return user.name;
                   });
@@ -134,7 +133,7 @@ class OrderPage extends Component {
                         <div className="order-list-item__price">
                           <NumberFormat
                             displayType="text"
-                            value={item.menu_item.price}
+                            value={me && users.length > 0 ? Math.floor(item.menu_item.price / users.length) : item.menu_item.price}
                             decimalScale={2}
                             prefix="$ "/>
                         </div>
@@ -177,7 +176,7 @@ class OrderPage extends Component {
                   You wil be charged for $ 5.00
                 </span>
                 </div>
-                <div className="buttons-group to-bottom w100 buttons-group_transparent">
+                <div className="buttons-group w100 buttons-group_transparent">
                   <button onClick={this.inviteGarson} className="app-button_transparent">
                     {
                       this.state.isInvited

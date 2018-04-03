@@ -164,7 +164,7 @@ class LoginPage extends Component {
             }
           </form>
 
-          <div className="buttons-group to-bottom">
+          <div className="buttons-group">
 
             {
               this.state.form === 'login'
