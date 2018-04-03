@@ -29,7 +29,7 @@ class LoginPage extends Component {
   state = {
     login: '',
     password: '',
-    form: 'register',
+    form: appState.waiter ? 'login' : 'register',
     error: null,
   };
 
@@ -59,7 +59,7 @@ class LoginPage extends Component {
           login: response.data.data.login,
           rest_id: response.data.data.rest_id,
         };
-        getFramework7().mainView.router.loadPage('/add-card');
+        getFramework7().mainView.router.loadPage('/order-stuff');
       })
       .catch((error) => {
         console.log(error);
@@ -143,11 +143,12 @@ class LoginPage extends Component {
           </form>
 
           <div className="buttons-group to-bottom">
+
             {
               this.state.form === 'login'
               ?     <button
                   className="app-button"
-                  onClick={this.login}
+                  onClick={appState.waiter ? this.loginStuff : this.login}
                 >
                   Login
                 </button>
@@ -158,13 +159,13 @@ class LoginPage extends Component {
                   Register
                 </button>
             }
-
             {
-              this.state.form === 'login'
-              ? <a href="#" onClick={this.toogleForm} className="button-link">Create account</a>
-              : <a href="#" onClick={this.toogleForm} className="button-link">Already have an account?</a>
+              !appState.waiter ?
+                this.state.form === 'login'
+                  ? <a href="#" onClick={this.toogleForm} className="button-link">Create account</a>
+                  : <a href="#" onClick={this.toogleForm} className="button-link">Already have an account?</a>
+                : null
             }
-
           </div>
         </div>
       </Page>
@@ -181,13 +182,20 @@ export const getCurrentRoute = () => currentRoute;
 let framework7;
 let currentRoute;
 
-export const App = () => {
-  return (<Framework7App
-    themeType="ios"
-    routes={routes}
-    onFramework7Init={f7 => framework7 = f7}
-    onRouteChange={route => currentRoute = route}
-  >
-    <MainViews />
-  </Framework7App>);
-};
+export class App extends Component {
+  componentWillMount() {
+    appState.waiter = this.props.waiter
+  }
+  render() {
+    return (
+      <Framework7App
+        themeType="ios"
+        routes={routes}
+        onFramework7Init={f7 => framework7 = f7}
+        onRouteChange={route => currentRoute = route}
+      >
+        <MainViews />
+      </Framework7App>
+    )
+  }
+}

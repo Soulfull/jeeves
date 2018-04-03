@@ -8,7 +8,6 @@ import OrderPageStuff from "./components/pages/OrderStuff.jsx";
 import RatingPage from "./components/pages/Rating.jsx";
 import ThanksPage from "./components/pages/Thanks.jsx";
 
-
 export const routes = [{
     path: '/about/',
     component: About
