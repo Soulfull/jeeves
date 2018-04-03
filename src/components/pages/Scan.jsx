@@ -4,6 +4,7 @@ import {Page, Navbar} from 'framework7-react';
 import { getFramework7 } from '../App.jsx';
 import axios from 'axios';
 import appState from '../../stores/appStore.js';
+import { instance } from '../api.js';
 
 class ScanPage extends Component {
   constructor(props){
@@ -25,7 +26,9 @@ class ScanPage extends Component {
     this.setState({
       loading: true,
     });
-    return axios.post('/code', data)
+    return axios.post('https://jeeves-199912.appspot.com/order/join_table', {
+      table_id: d.table,
+    })
       .then(() => {
         this.setState({
           loading: false,

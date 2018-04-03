@@ -124,7 +124,14 @@ class OrderPage extends Component {
                     >
                       <div className="order-list-item__col">
                         <div className="order-list-item__name">{item.menu_item.name}</div>
-                        <div className="order-list-item__users">Split {`${me ? 'me' : ''} ${users.join(', ')}`}</div>
+                        {
+                          users.length
+                            ? users.length > 1
+                              ? <div className="order-list-item__users">Split between {`${me ? 'me' : ''} ${users.join(', ')}`}</div>
+                              : <div className="order-list-item__users">– {users[0]}</div>
+                            : null
+                        }
+
                       </div>
                       <div className="order-list-item__col">
                         <div className="order-list-item__price">

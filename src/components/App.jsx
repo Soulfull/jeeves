@@ -1,6 +1,10 @@
-import React, {PropTypes, Component} from 'react';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
 import axios from 'axios';
 import appState from '../stores/appStore.js';
+import {instance} from './api.js';
 
 import {
   Framework7App,
@@ -9,8 +13,6 @@ import {
   View,
   Views,
 } from 'framework7-react';
-
-import Button from '../components/Button.jsx';
 import {routes} from '../routes';
 
 const MainViews = (props, context) => {
@@ -50,7 +52,8 @@ class LoginPage extends Component {
   loginStuff = () => {
     const { login, password } = this.state;
     axios.post('https://jeeves-199912.appspot.com/waiter/login', {
-      login, password
+      login,
+      password
     })
       .then((response) => {
         console.log(response);
@@ -69,7 +72,8 @@ class LoginPage extends Component {
   login = () => {
     const { login, password } = this.state;
     axios.post('https://jeeves-199912.appspot.com/user/login', {
-      login, password
+      login,
+      password
     })
       .then((response) => {
         if (response.data.error) {
@@ -90,11 +94,27 @@ class LoginPage extends Component {
 
   register = () => {
     const { login, password } = this.state;
+    instance({
+      url: '/user/reg',
+      data: {
+        login,
+        password,
+      }
+    })
+      .then((response) => {
+        appState.user = {
+          id: response.data.data.id,
+          login: response.data.data.login,
+        };
+        getFramework7().mainView.router.loadPage('/add-card');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     // axios.post('https://jeeves-199912.appspot.com/user/reg', {
     //   login, password
     // })
     //   .then((response) => {
-    //     console.log(response);
     //     appState.user = {
     //       id: response.data.data.id,
     //       login: response.data.data.login,
@@ -104,11 +124,12 @@ class LoginPage extends Component {
     //   .catch((error) => {
     //     console.log(error);
     //   });
-    getFramework7().mainView.router.loadPage('/add-card');
+
+    // getFramework7().mainView.router.loadPage('/add-card');
   }
 
   toogleForm = () => {
-    let formState = this.state.form === 'login' ? 'register': 'login';
+    let formState = this.state.form === 'login' ? 'register' : 'login';
     this.setState({
       form: formState
     })
@@ -131,13 +152,14 @@ class LoginPage extends Component {
               <input type="text" placeholder="name" onChange={this.changeName} />
             </div>
             <div className="form-input">
-              <div className="form-input__label">{this.state.form === 'login' ? 'Your Password' : 'Create password'}</div>
+              <div
+                className="form-input__label">{this.state.form === 'login' ? 'Your Password' : 'Create password'}</div>
               <input type="password" placeholder="password" onChange={this.changePass} />
             </div>
 
             {
               this.state.error ?
-                <div className="error" style={{color: 'red'}}>{this.state.error}</div>
+                <div className="error" style={{ color: 'red' }}>{this.state.error}</div>
                 : null
             }
           </form>
@@ -146,13 +168,13 @@ class LoginPage extends Component {
 
             {
               this.state.form === 'login'
-              ?     <button
+                ? <button
                   className="app-button"
                   onClick={appState.waiter ? this.loginStuff : this.login}
                 >
                   Login
                 </button>
-              :      <button
+                : <button
                   className="app-button"
                   onClick={this.register}
                 >
@@ -163,7 +185,8 @@ class LoginPage extends Component {
               !appState.waiter ?
                 this.state.form === 'login'
                   ? <a href="#" onClick={this.toogleForm} className="button-link">Create account</a>
-                  : <a href="#" onClick={this.toogleForm} className="button-link">Already have an account?</a>
+                  : <a href="#" onClick={this.toogleForm} className="button-link">Already have an
+                    account?</a>
                 : null
             }
           </div>
@@ -186,6 +209,7 @@ export class App extends Component {
   componentWillMount() {
     appState.waiter = this.props.waiter
   }
+
   render() {
     return (
       <Framework7App
