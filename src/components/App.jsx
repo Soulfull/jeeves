@@ -29,37 +29,89 @@ class LoginPage extends Component {
   state = {
     login: '',
     password: '',
+    form: appState.waiter ? 'login' : 'register',
+    error: null,
   };
 
-  changeEmail = (e) => {
+  changeName = (e) => {
     const value = e.target.value;
     this.setState({
       login: value,
     })
-  }
+  };
 
   changePass = (e) => {
     const value = e.target.value;
     this.setState({
       password: value,
     })
-  }
+  };
 
-  register = () => {
+  loginStuff = () => {
     const { login, password } = this.state;
-    axios.post('https://jeeves-199912.appspot.com/user/reg', {
+    axios.post('https://jeeves-199912.appspot.com/waiter/login', {
       login, password
     })
       .then((response) => {
+        console.log(response);
         appState.user = {
-          id: response.data.id,
-          login: response.data.login,
+          id: response.data.data.id,
+          login: response.data.data.login,
+          rest_id: response.data.data.rest_id,
         };
-        getFramework7().mainView.router.loadPage('/add-card');
+        getFramework7().mainView.router.loadPage('/order-stuff');
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  login = () => {
+    const { login, password } = this.state;
+    axios.post('https://jeeves-199912.appspot.com/user/login', {
+      login, password
+    })
+      .then((response) => {
+        if (response.data.error) {
+          this.setState({
+            error: response.data.error
+          });
+        }
+        appState.user = {
+          id: response.data.data.id,
+          login: response.data.data.login,
+        };
+        getFramework7().mainView.router.loadPage('/scan');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  register = () => {
+    const { login, password } = this.state;
+    // axios.post('https://jeeves-199912.appspot.com/user/reg', {
+    //   login, password
+    // })
+    //   .then((response) => {
+    //     console.log(response);
+    //     appState.user = {
+    //       id: response.data.data.id,
+    //       login: response.data.data.login,
+    //     };
+    //     getFramework7().mainView.router.loadPage('/add-card');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    getFramework7().mainView.router.loadPage('/add-card');
+  }
+
+  toogleForm = () => {
+    let formState = this.state.form === 'login' ? 'register': 'login';
+    this.setState({
+      form: formState
+    })
   }
 
   render() {
@@ -75,22 +127,45 @@ class LoginPage extends Component {
           </div>
           <form>
             <div className="form-input">
-              <div className="form-input__label">Your login</div>
-              <input type="text" placeholder="login" onChange={this.changeEmail} />
+              <div className="form-input__label">Your name</div>
+              <input type="text" placeholder="name" onChange={this.changeName} />
             </div>
             <div className="form-input">
-              <div className="form-input__label">Create a password</div>
+              <div className="form-input__label">{this.state.form === 'login' ? 'Your Password' : 'Create password'}</div>
               <input type="password" placeholder="password" onChange={this.changePass} />
             </div>
+
+            {
+              this.state.error ?
+                <div className="error" style={{color: 'red'}}>{this.state.error}</div>
+                : null
+            }
           </form>
 
           <div className="buttons-group to-bottom">
-            <button
-              className="app-button"
-              onClick={this.register}
-            >
-              Register
-            </button>
+
+            {
+              this.state.form === 'login'
+              ?     <button
+                  className="app-button"
+                  onClick={appState.waiter ? this.loginStuff : this.login}
+                >
+                  Login
+                </button>
+              :      <button
+                  className="app-button"
+                  onClick={this.register}
+                >
+                  Register
+                </button>
+            }
+            {
+              !appState.waiter ?
+                this.state.form === 'login'
+                  ? <a href="#" onClick={this.toogleForm} className="button-link">Create account</a>
+                  : <a href="#" onClick={this.toogleForm} className="button-link">Already have an account?</a>
+                : null
+            }
           </div>
         </div>
       </Page>
@@ -107,13 +182,20 @@ export const getCurrentRoute = () => currentRoute;
 let framework7;
 let currentRoute;
 
-export const App = () => {
-  return (<Framework7App
-    themeType="ios"
-    routes={routes}
-    onFramework7Init={f7 => framework7 = f7}
-    onRouteChange={route => currentRoute = route}
-  >
-    <MainViews />
-  </Framework7App>);
-};
+export class App extends Component {
+  componentWillMount() {
+    appState.waiter = this.props.waiter
+  }
+  render() {
+    return (
+      <Framework7App
+        themeType="ios"
+        routes={routes}
+        onFramework7Init={f7 => framework7 = f7}
+        onRouteChange={route => currentRoute = route}
+      >
+        <MainViews />
+      </Framework7App>
+    )
+  }
+}

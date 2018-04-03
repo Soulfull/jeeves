@@ -11,8 +11,12 @@ import './css/app.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {App} from './components/App';
+import {AppStuff} from './components/App';
+
+
+const waiter = document.location.search;
 
 ReactDOM.render(
-  <App />,
+  <App waiter={waiter} />,
   document.getElementById('root')
 );
