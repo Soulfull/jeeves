@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 body {
     font-family: 'Montserrat', sans-serif;
 }
@@ -68,7 +70,7 @@ body,
 
 .title {
     display: block;
-    text-align: center;
+    text-align: left;
     text-transform: capitalize;
     font-size: 32px;
     letter-spacing: 13px;
@@ -240,7 +242,46 @@ body,
     margin: 30px 0 24px 0;
 }
 
+.header-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 16px 0;
 
+}
+
+.menu-title {
+    background-color: #f3233c;
+    position: absolute;
+    width: 100vw;
+    left: -9px;
+    top: -1px;
+    color: #fff;
+    padding: 23px 0;
+    text-align: center;
+}
+
+.add-button {
+    background-color: #000;
+    padding: 4px 16px;
+    text-align: center;
+    border-radius: 2px;
+    color: #fff;
+    border: 1px solid #000;
+}
+.common-title {
+    color: #000;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.33;
+    margin: 0;
+    padding: 0;
+
+}
+
+.order_menu {
+    margin-top: 40px;
+}
 .order-list {
     list-style: none;
     margin: 0;
@@ -253,10 +294,10 @@ body,
     padding: 16px;
     font-size: 16px;
     line-height: 24px;
-    border-radius: 2px;
+    /*border-radius: 2px;*/
     display: flex;
     color: #000;
-    border-top: 1px solid rgba(0,0,0,.1);
+    border-bottom: 1px solid rgba(0,0,0,.1);
     justify-content: space-between;
 }
 
@@ -327,4 +368,13 @@ body,
 .buttons-group {
     display: flex;
     justify-content: center;
+}
+
+.link_white {
+    color: #fff;
+    font-size: 12px;
+}
+.button_white {
+    color: #fff;
+    margin-left: 10px;
 }

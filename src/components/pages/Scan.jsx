@@ -67,9 +67,10 @@ class ScanPage extends Component {
                 style={{ width: '100%', height: '100%', position: 'absolute' }}
               />
             </div>
-            <div className="scan-title scan-title--bottom">Help
+            <div className="scan-title scan-title--bottom">
 
-              <button onClick={() => {getFramework7().mainView.router.loadPage('/garson/');}}>GO NEXT!</button>
+              <a href="#" className="link_white">Help</a>
+              <button className="button_white" onClick={() => {getFramework7().mainView.router.loadPage('/garson/');}}>GO NEXT!</button>
             </div>
           </div>
       </Page>

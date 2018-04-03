@@ -3,7 +3,7 @@ import { Link } from 'framework7-react';
 
 const Button = (props) => (
     <Link
-      className="app-button"
+      className={`${props.className ? props.className : 'app-button'}`}
       href={props.href}
     >
       {props.children}

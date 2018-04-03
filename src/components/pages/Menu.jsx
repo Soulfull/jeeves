@@ -8,17 +8,21 @@ import {
 import Button from '../../components/Button.jsx';
 
 
-class OrderStuff extends Component {
+class Menu extends Component {
   render() {
     return (
       <Page>
-        <Navbar className="navbar-light" title="Тable 4 at «Seabass»" sliding />
+        <Navbar className="navbar-light" title="Add to Alexey (Table 4)" sliding />
+
         <ContentBlock inner>
-          <div className="order">
+          <div className="menu-title">
+            Peanuts allergic
+          </div>
+          <div className="order order_menu">
             <ul className="order-list">
               <header className="header-group">
-                <h4 className="common-title">Table 4:</h4>
-                <Button className="add-button" href="/menu">+ Add</Button>
+                <h4 className="common-title">!!!!:</h4>
+                <button className="add-button">+ Add</button>
               </header>
               <li className="order-list-item">
                 <div className="order-list-item__col">
@@ -114,4 +118,4 @@ class OrderStuff extends Component {
   }
 }
 
-export default OrderStuff;
+export default Menu;
