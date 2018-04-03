@@ -13,6 +13,7 @@ import {getFramework7} from "../App.jsx";
 class OrderPage extends Component {
   state = {
     tm: null,
+    myDishes: 0,
   }
 
   componentWillMount() {
@@ -75,7 +76,9 @@ class OrderPage extends Component {
     axios.post('https://jeeves-199912.appspot.com/order/join_order', {
       detail_id: id,
     }).then((response) => {
-      console.log(response);
+      this.setState({
+        myDishes: ++this.state.myDishes
+      })
       this.updateData(response.data);
     });
 
@@ -86,6 +89,9 @@ class OrderPage extends Component {
       detail_id: id,
     }).then((response) => {
       console.log(response);
+      this.setState({
+        myDishes: --this.state.myDishes
+      });
       this.updateData(response.data);
     });
 
@@ -119,6 +125,7 @@ class OrderPage extends Component {
                   });
                   return (
                     <li
+                      key={item.id}
                       className={`order-list-item ${me ? 'order-list-item--selected': ''}`}
                       onClick={onClick}
                     >
@@ -150,23 +157,31 @@ class OrderPage extends Component {
           </div>
         </ContentBlock>
 
-        <div className="buttons-group to-bottom w100">
-          <div
-            className="app-button"
-            onClick={this.pay}
-          >
-            <div className="flex">
-              <div className="col">Pay</div>
-              <div className="col">
-                <NumberFormat
-                  displayType="text"
-                  value={1100}
-                  decimalScale={2}
-                  prefix="$ "/>
+        {
+          this.state.myDishes > 0
+          ? (
+              <div className="buttons-group to-bottom w100">
+                <div
+                  className="app-button"
+                  onClick={this.pay}
+                >
+                  <div className="flex">
+                    <div className="col">Pay</div>
+                    <div className="col">
+                      <NumberFormat
+                        displayType="text"
+                        value={1100}
+                        decimalScale={2}
+                        prefix="$ "/>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            ): (
+              <div>GARSON!!!!!!!!!!</div>
+            )
+        }
+
       </Page>
     )
   }
