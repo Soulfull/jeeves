@@ -178,7 +178,19 @@ class OrderPage extends Component {
                 </div>
               </div>
             ): (
-              <div>GARSON!!!!!!!!!!</div>
+              <div>
+                <div className="description">
+                 <span className="lite-text">
+                    There is 1 unaccepted dish. It’s price will be split among 2 guests.
+                </span>
+                  <span className="bold-text">
+                  You wil be charged for $ 5.00
+                </span>
+                </div>
+                <div className="buttons-group to-bottom w100 buttons-group_transparent">
+                  <button className="app-button_transparent">Garçon!</button>
+                </div>
+              </div>
             )
         }
 
